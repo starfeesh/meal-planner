@@ -5,11 +5,11 @@ import vuetify from './plugins/vuetify';
 import moment from 'moment'
 
 Vue.prototype.moment = moment
-
 Vue.config.productionTip = false
 
+
 new Vue({
-  vuetify,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')

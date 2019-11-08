@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
+import VuetifyDialog from 'vuetify-dialog'
 
-Vue.use(Vuetify);
-
-export default new Vuetify({
+const vuetify = new Vuetify({
   theme: {
+    dark: true,
     themes: {
       dark: {
         primary: "#6B637B",
@@ -30,3 +30,8 @@ export default new Vuetify({
     iconfont: 'mdi',
   },
 });
+export default vuetify
+
+Vue.use(Vuetify);
+Vue.use(VuetifyDialog, { context: { vuetify } })
+
