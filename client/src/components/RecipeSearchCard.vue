@@ -1,15 +1,12 @@
 <template>
     <div>
-        <v-overlay :value="overlay">
-            <v-row justify="center">
-                <v-dialog
-                        v-model="dialog"
-                        max-width="290"
-                >
-                    {{dialog}}
-                </v-dialog>
-            </v-row>
-        </v-overlay>
+        <v-row justify="center">
+            <v-dialog
+                    v-model="dialog"
+            >
+                {{dialog}}
+            </v-dialog>
+        </v-row>
     </div>
 </template>
 
@@ -18,7 +15,6 @@
     name: 'RecipeSearchCard',
     data: () => ({
       dialog: true,
-      overlay: true
     }),
 
   }

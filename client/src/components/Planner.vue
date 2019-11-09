@@ -24,12 +24,12 @@
                                 <v-card-subtitle class="text--white px-2 py-0 text-right text-uppercase">
                                     <span>{{ getCurrentDate(day, week).format('ddd') }}</span>
                                 </v-card-subtitle>
-                                <v-card-title class="display-1 text--white pa-1 py-0 text-right text-uppercase month">
+                                <v-card-subtitle class="display-1 text--white pa-1 py-0 text-right text-uppercase month">
                                     <span>{{ getCurrentDate(day, week).format('MMM') }}</span>
-                                </v-card-title>
-                                <v-card-title class="display-1 text--white pa-1 py-0 text-right justify-end">
+                                </v-card-subtitle>
+                                <v-card-subtitle class="display-1 text--white pa-1 py-0 text-right justify-end">
                                     {{ getCurrentDate(day, week).format('DD') }}
-                                </v-card-title>
+                                </v-card-subtitle>
                             </v-sheet>
                             <v-card-text class="py-0 innerBody">
                                 <v-col cols="12" class="py-0 innerChild" v-for="mealInstance in mealTypes" :class="separateMeals(mealInstance)" :key="mealInstance.id">
@@ -92,8 +92,8 @@
 
 <script>
   /* eslint-disable vue/no-unused-components */
-  import Vuetify from 'vuetify/lib'
   import Vue from 'vue'
+  import vuetify from '../plugins/vuetify'
   import { mapState } from 'vuex'
   import moment from 'moment'
   import Meal from "./Meal"
@@ -134,10 +134,9 @@
         } else return sunday.add(day, 'day')
       },
       addMeal() {
-        let vuet = new Vuetify()
         let ComponentClass = Vue.extend(RecipeSearchCard)
         let instance = new ComponentClass({
-          vuet,
+          vuetify,
           propsData: { active: this.active }
         })
         instance.$mount() // pass nothing

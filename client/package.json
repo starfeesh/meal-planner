@@ -11,8 +11,7 @@
     "core-js": "^3.3.2",
     "vue": "^2.6.10",
     "vue-clamp": "^0.2.2",
-    "vuetify": "^2.1.0",
-    "vuetify-dialog": "^1.0.0-alpha.5",
+    "vuetify": "^2.1.9",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
