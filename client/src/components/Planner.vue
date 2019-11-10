@@ -44,23 +44,14 @@
                                         <v-col cols="4" class="mb-auto mt-2">
                                             <v-card class="transparent" tile flat>
                                                 <v-card-text class="pa-0 pt-1 text-right text--white">
-                                                    <v-btn v-if="!checkForData(mealInstance, day, week)"
+                                                    <v-btn
                                                             dark
                                                             :color="mealInstance.color"
                                                             x-small
                                                             fab
-                                                            @click.stop="addMeal()"
+                                                            @click.stop="toggleRecipeCard(mealInstance, day, week)"
                                                             >
-                                                        <v-icon>mdi-plus</v-icon>
-                                                    </v-btn>
-                                                    <v-btn v-else=""
-                                                            dark
-                                                           :color="mealInstance.color"
-                                                            x-small
-                                                            fab
-                                                            @click.stop="removeMeal()"
-                                                            >
-                                                        <v-icon>mdi-minus</v-icon>
+                                                        <v-icon>{{ iconType }}</v-icon>
                                                     </v-btn>
                                                 </v-card-text>
                                             </v-card>
@@ -84,16 +75,17 @@
                 </v-row>
             </v-col>
         </v-row>
-        <v-container ref="container">
-
+        <v-container ref="container" v-if="showRecipeCard">
+            <RecipeSearchCard :isShown="showRecipeCard" :is-shown.sync="showRecipeCard" light/>
         </v-container>
     </v-container>
 </template>
 
 <script>
   /* eslint-disable vue/no-unused-components */
+  /* eslint-disable no-unused-vars */
   import Vue from 'vue'
-  import vuetify from '../plugins/vuetify'
+  //import vuetify from '../plugins/vuetify'
   import { mapState } from 'vuex'
   import moment from 'moment'
   import Meal from "./Meal"
@@ -106,9 +98,11 @@
     },
     data: () => ({
       activeDate: '',
-      toggleButton: true,
+      toggleButton: false,
       visibleWeeks: 1,
-      activeMeal: ''
+      activeMeal: '',
+      showRecipeCard: false,
+      iconType: ''
     }),
     computed: mapState({
       meals: state => state.meals.meals,
@@ -133,16 +127,20 @@
           return sunday.add(days, 'day')
         } else return sunday.add(day, 'day')
       },
-      addMeal() {
-        let ComponentClass = Vue.extend(RecipeSearchCard)
+
+      toggleRecipeCard(meal, day, week) {
+        this.showRecipeCard = !this.showRecipeCard
+        console.log(this.showRecipeCard)
+
+        /*let ComponentClass = Vue.extend(RecipeSearchCard)
         let instance = new ComponentClass({
           vuetify,
           propsData: { active: this.active }
         })
         instance.$mount() // pass nothing
-        this.$refs.container.appendChild(instance.$el)
-      },
+        this.$refs.container.appendChild(instance.$el)*/
 
+      },
       /*changeActive(title, action, date) {
         if (action === 'plus' && date) {
           console.log(moment().format('x') + ' plus before ' + title)
@@ -174,13 +172,16 @@
       checkForData (meal, day, week) {
         let mealData = {}
         let date = this.formatDate(day, week)
-        Vue.set(mealData, date, this.meals[date])
-        if (mealData) {
-          if (mealData[date]) {
-            if (mealData[date]){
-              return mealData[date][meal.title]
-            } else {
-              return false
+        if (this.meals.hasOwnProperty(date)) {
+          Vue.set(mealData, date, this.meals[date])
+          console.log(mealData[date][meal.title].title)
+          if (mealData) {
+            if (mealData[date]) {
+              if (mealData[date][meal.title]){
+                return mealData[date][meal.title].title
+              } else {
+                return false
+              }
             }
           }
         }
@@ -189,7 +190,7 @@
     created () {
       this.$store.dispatch('meals/getAllMealTypes')
       this.$store.dispatch('meals/getAllMeals')
-    },
+    }
   }
 </script>
 

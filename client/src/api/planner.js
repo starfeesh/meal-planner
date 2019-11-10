@@ -1,18 +1,54 @@
 
 const _meals = {
-  "2019-11-04": {
-    "breakfast": "Granola with a banana and some berries and peanut butter and chicken nuggets and beef roast",
-    "lunch": "Sandwich with mayo and eggs and sausage and cheese and crab",
-    "dinner": "Meatloaf with carrots and corn and chicken and beef and salad",
-    "snacks": "Slimjames and chips and soda with candy and chocolate",
-  },
   "2019-11-05": {
-    "breakfast": "Granola with a banana and some nuggets and beef roast",
-    "lunch": "Sandwich sausage and cheese and crab",
-    "dinner": "Meatloaf with carrots and corn and chicken and beef and salad",
-    "snacks": "Slimjames and candy and chocolate",
+    "breakfast": {
+      title: "Granola with a banana and some nuggets and beef roast",
+    },
+    "lunch": {
+      title: "Sandwich sausage and cheese and crab",
+    },
+    "dinner": {
+      title: "Meatloaf with carrots and corn and chicken and beef and salad"
+    },
+    "snacks": {
+      title: "Slimjames and candy and chocolate"
+    },
+  },
+  "2019-11-12": {
+    "breakfast": {
+      title: "Granola with a banana and some nuggets and beef roast",
+    },
+    "lunch": {
+      title: "Sandwich sausage and cheese and crab",
+    },
+    "dinner": {
+      title: "Meatloaf with carrots and corn and chicken and beef and salad"
+    },
+    "snacks": {
+      title: "Slimjames and candy and chocolate"
+    },
   }
 }
+/*
+const _meals = {
+  13: {
+    date: "2019-11-04",
+    meal: "breakfast",
+    title: "Granola with a banana and some berries and peanut butter and chicken nuggets and beef roast"
+  },
+  14: {
+    date: "2019-11-04",
+    meal: "lunch",
+    title: "Granola with a banana and some berries and peanut butter and chicken nuggets and beef roast"
+  },
+  15: {
+    date: "2019-11-05",
+    meal: "dinner",
+    title: "Granola with a banana and some berries and peanut butter and chicken nuggets and beef roast"
+  }
+}*/
+
+
 
 const _mealTypes = [
   {

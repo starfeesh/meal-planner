@@ -9,7 +9,6 @@ const state = {
 
 // getters
 const getters = {}
-
 // actions
 const actions = {
   getAllMeals ({ commit }) {
