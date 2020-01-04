@@ -2,14 +2,13 @@ import planner from '../../api/planner'
 
 // initial state
 const state = {
-  meals: [],
+  meals: {},
   mealTypes: [],
   activeMeal: ''
 }
 
 // getters
 const getters = {}
-
 // actions
 const actions = {
   getAllMeals ({ commit }) {
@@ -32,6 +31,9 @@ const actions = {
 const mutations = {
   setMeals (state, meals) {
     state.meals = meals
+  },
+  removeMeal (state, {meal, date}) {
+    state.meals[date][meal.title]['title'] = ""
   },
   setMealTypes (state, mealTypes) {
     state.mealTypes = mealTypes

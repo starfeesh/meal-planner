@@ -44,23 +44,23 @@
                                         <v-col cols="4" class="mb-auto mt-2">
                                             <v-card class="transparent" tile flat>
                                                 <v-card-text class="pa-0 pt-1 text-right text--white">
-                                                    <v-btn v-if="!checkForData(mealInstance, day, week)"
-                                                            dark
-                                                            :color="mealInstance.color"
-                                                            x-small
-                                                            fab
-                                                            @click.stop="addMeal()"
-                                                            >
-                                                        <v-icon>mdi-plus</v-icon>
-                                                    </v-btn>
-                                                    <v-btn v-else=""
-                                                            dark
+                                                    <v-btn v-if="displayPlusOrMinus(mealInstance, day, week)"
+                                                           dark
                                                            :color="mealInstance.color"
-                                                            x-small
-                                                            fab
-                                                            @click.stop="removeMeal()"
-                                                            >
-                                                        <v-icon>mdi-minus</v-icon>
+                                                           x-small
+                                                           fab
+                                                           @click.stop="removeContent(mealInstance, day, week)"
+                                                    >
+                                                        <v-icon> mdi-minus </v-icon>
+                                                    </v-btn>
+                                                    <v-btn v-if="!displayPlusOrMinus(mealInstance, day, week)"
+                                                           dark
+                                                           :color="mealInstance.color"
+                                                           x-small
+                                                           fab
+                                                           @click.stop="displayRecipeCard(mealInstance, day, week)"
+                                                    >
+                                                        <v-icon> mdi-plus </v-icon>
                                                     </v-btn>
                                                 </v-card-text>
                                             </v-card>
@@ -70,8 +70,7 @@
                                         <v-col cols="10" class="py-0 innerChild">
                                             <div>
                                                 <v-card class="transparent" tile flat>
-                                                    <Meal :meal-text="checkForData(mealInstance, day, week)"
-                                                          v-if="checkForData(mealInstance, day, week)"
+                                                    <Meal :meal-text="getMealText(mealInstance, day, week)"
                                                     />
                                                 </v-card>
                                             </div>
@@ -84,16 +83,17 @@
                 </v-row>
             </v-col>
         </v-row>
-        <v-container ref="container">
-
+        <v-container ref="container" v-if="showRecipeCard">
+            <RecipeSearchCard :shown.sync="showRecipeCard" light/>
         </v-container>
     </v-container>
 </template>
 
 <script>
   /* eslint-disable vue/no-unused-components */
+  /* eslint-disable no-unused-vars */
   import Vue from 'vue'
-  import vuetify from '../plugins/vuetify'
+  //import vuetify from '../plugins/vuetify'
   import { mapState } from 'vuex'
   import moment from 'moment'
   import Meal from "./Meal"
@@ -106,9 +106,10 @@
     },
     data: () => ({
       activeDate: '',
-      toggleButton: true,
+      toggleButton: false,
       visibleWeeks: 1,
-      activeMeal: ''
+      activeMeal: '',
+      showRecipeCard: false,
     }),
     computed: mapState({
       meals: state => state.meals.meals,
@@ -133,54 +134,38 @@
           return sunday.add(days, 'day')
         } else return sunday.add(day, 'day')
       },
-      addMeal() {
-        let ComponentClass = Vue.extend(RecipeSearchCard)
+      getMealText(meal, day, week) {
+        if (this.meals.hasOwnProperty(this.formatDate(day, week))) {
+          return this.meals[this.formatDate(day, week)][meal.title].title
+        }
+      },
+      displayRecipeCard(meal, day, week) {
+        this.showRecipeCard = !this.showRecipeCard
+        console.log('Show card: ' + this.showRecipeCard)
+        /*let ComponentClass = Vue.extend(RecipeSearchCard)
         let instance = new ComponentClass({
           vuetify,
           propsData: { active: this.active }
         })
         instance.$mount() // pass nothing
-        this.$refs.container.appendChild(instance.$el)
+        this.$refs.container.appendChild(instance.$el)*/
       },
+      removeContent (meal, day, week) {
+        let meals = this.meals
 
-      /*changeActive(title, action, date) {
-        if (action === 'plus' && date) {
-          console.log(moment().format('x') + ' plus before ' + title)
-          this.activeDate = date
-          this.activeMeal = title
-          this.toggleButton = false
-
-          this.$store.commit('meals/setActive', title)
-
-          console.log(moment().format('x') + ' plus after ' + title)
-          console.log('Dealing with meal: ' + title + '. Meal that is active: ' + this.active + ' ' + date)
-
-        } else if (action === 'minus' && title === this.active) {
-          console.log(moment().format('x') + ' minus before ' + title)
-          this.activeDate = ''
-          this.activeMeal = ''
-          this.toggleButton = true
-
-          this.$store.commit('meals/setInactive')
-
-          console.log(moment().format('x') + ' minus after '  + title)
-          console.log('Dealing with meal: ' + title + '. Meal that is active: ' + this.active + ' ' + date)
-
-          //console.log('This meal: ' + mealInstance.title + ' is active: ' + mealInstance.active)
-        } else if (this.meals[date][title]) {
-          this.toggleButton = true
+        if (meals.hasOwnProperty(this.formatDate(day, week))) {
+          if (meals[this.formatDate(day, week)].hasOwnProperty(meal.title)) {
+            this.$store.commit('meals/removeMeal', {meal: meal, date: this.formatDate(day, week)})
+            console.log(meals)
+          }
         }
-      },*/
-      checkForData (meal, day, week) {
-        let mealData = {}
-        let date = this.formatDate(day, week)
-        Vue.set(mealData, date, this.meals[date])
-        if (mealData) {
-          if (mealData[date]) {
-            if (mealData[date]){
-              return mealData[date][meal.title]
-            } else {
-              return false
+
+      },
+      displayPlusOrMinus (meal, day, week) {
+        if (this.meals.hasOwnProperty(this.formatDate(day, week))) {
+          if (this.meals[this.formatDate(day, week)].hasOwnProperty(meal.title)) {
+            if (this.meals[this.formatDate(day, week)][meal.title].title.length > 0) {
+              return true // data exists, display minus
             }
           }
         }
@@ -189,7 +174,7 @@
     created () {
       this.$store.dispatch('meals/getAllMealTypes')
       this.$store.dispatch('meals/getAllMeals')
-    },
+    }
   }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="pa-0" ref="container">
+    <v-container fluid class="pa-0 text-height" ref="container">
         <v-clamp :max-lines="1">{{ mealText }}</v-clamp>
     </v-container>
 </template>
@@ -21,3 +21,9 @@
     props: ['mealText']
   }
 </script>
+
+<style scoped>
+    .text-height {
+        height: 17px;
+    }
+</style>
