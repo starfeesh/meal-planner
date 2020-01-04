@@ -1,6 +1,20 @@
 
 const _meals = {
-  "2019-11-05": {
+  "2019-11-10": {
+    "breakfast": {
+      title: "Granola with a banana and some nuggets and beef roast",
+    },
+    "lunch": {
+      title: "Sandwich sausage and cheese and crab",
+    },
+    "dinner": {
+      title: "Meatloaf with carrots and corn and chicken and beef and salad"
+    },
+    "snacks": {
+      title: "Slimjames and candy and chocolate"
+    },
+  },
+  "2019-11-11": {
     "breakfast": {
       title: "Granola with a banana and some nuggets and beef roast",
     },
@@ -20,6 +34,76 @@ const _meals = {
     },
     "lunch": {
       title: "Sandwich sausage and cheese and crab",
+    },
+    "dinner": {
+      title: "Meatloaf with carrots and corn and chicken and beef and salad"
+    },
+    "snacks": {
+      title: "Slimjames and candy and chocolate"
+    },
+  },
+  "2019-11-13": {
+    "breakfast": {
+      title: "Granola with a banana and some nuggets and beef roast",
+    },
+    "lunch": {
+      title: "Sandwich sausage and cheese and crab",
+    },
+    "dinner": {
+      title: "Meatloaf with carrots and corn and chicken and beef and salad"
+    },
+    "snacks": {
+      title: "Slimjames and candy and chocolate"
+    },
+  },
+  "2019-11-14": {
+    "breakfast": {
+      title: "xyz",
+    },
+    "lunch": {
+      title: "",
+    },
+    "dinner": {
+      title: ""
+    },
+    "snacks": {
+      title: ""
+    },
+  },
+  "2019-11-15": {
+    "breakfast": {
+      title: "Granola with a banana and some nuggets and beef roast",
+    },
+    "lunch": {
+      title: "Sandwich sausage and cheese and crab",
+    },
+    "dinner": {
+      title: "Meatloaf with carrots and corn and chicken and beef and salad"
+    },
+    "snacks": {
+      title: "Slimjames and candy and chocolate"
+    },
+  },
+  "2019-11-16": {
+    "breakfast": {
+      title: "Granola with a banana and some nuggets and beef roast",
+    },
+    "lunch": {
+      title: "Sandwich sausage and cheese and crab",
+    },
+    "dinner": {
+      title: "Meatloaf with carrots and corn and chicken and beef and salad"
+    },
+    "snacks": {
+      title: "Slimjames and candy and chocolate"
+    },
+  },
+  "2019-11-17": {
+    "breakfast": {
+      title: "Granola with a banana and some nuggets and beef roast",
+    },
+    "lunch": {
+      title: "",
     },
     "dinner": {
       title: "Meatloaf with carrots and corn and chicken and beef and salad"
